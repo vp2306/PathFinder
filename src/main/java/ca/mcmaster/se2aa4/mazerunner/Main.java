@@ -17,10 +17,10 @@ import org.apache.logging.log4j.Logger;
 
 public class Main {
 
-    private static final Logger logger = LogManager.getLogger();
+    public static final Logger logger = LogManager.getLogger();
     public static void main(String[] args) {
 
-        CommandLineParser  parser = new DefaultParser();
+        CommandLineParser parser = new DefaultParser();
         Options options = new Options();
 
         // set hash arg to true because program expects -i or --i to have a file name associated with it
@@ -34,20 +34,19 @@ public class Main {
 
             //create a string that will store the actual name of file that needs to be parsed
             String fileName = createFileName(cmd);
+            
 
-            logger.info("**** Reading the maze from file " + fileName);
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                for (int idx = 0; idx < line.length(); idx++) {
-                    if (line.charAt(idx) == '#') {
-                        logger.info("WALL ");
-                    } else if (line.charAt(idx) == ' ') {
-                        logger.info("PASS ");
-                    }
-                }
-                logger.info(System.lineSeparator());
-            }
+            CreateMaze maze = new CreateMaze();
+            maze.generateMaze(fileName);
+
+            Position position = new Position();
+            position.initialPosition();
+
+            Explore explorer = new Explore();
+            String path = explorer.findPath();
+
+            System.out.println("Path for current maze: " + path);
+
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
         }
