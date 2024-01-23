@@ -6,12 +6,14 @@ public class Explore {
     
     public String findPath(String[][] maze){
 
+        String currentPath = " ";
+
+
         //find starting coordiate
         ArrayList<Position> path = new ArrayList<>();
         Position p = new Position();
 
         int row = maze.length;
-        System.out.println(row);
 
         //now we find the actual starting position. iterate 2d arr
         for(int i = 0; i < row; i ++){
@@ -23,10 +25,7 @@ public class Explore {
         }
 
         
-
-        String hello = "entry at row " + p.y + " column " + p.x;
-
-        return hello;
+        return currentPath;
     }
 
 
