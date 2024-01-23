@@ -8,21 +8,31 @@ public class Explore {
 
         String currentPath = " ";
 
-
         //find starting coordiate
         ArrayList<Position> path = new ArrayList<>();
-        Position p = new Position();
+        Position pCurrent = new Position();
+        Position pEnd = new Position();
 
         int row = maze.length;
 
         //now we find the actual starting position. iterate 2d arr
         for(int i = 0; i < row; i ++){
             if (maze[i][0] == "PASS") {
-                p.x = 0;//column 0
-                p.y = i+1;//row i
+                pCurrent.x = 0;//column 0
+                pCurrent.y = i;//row i
                 break;
             }
         }
+
+        for(int j = 0; j < row; j++){
+            if(maze[j][maze[0].length-1] == "PASS"){
+                pEnd.x = maze[0].length-1; // last column
+                pEnd.y = j;//row in last column that contains the pass
+                break;
+            }
+        }
+
+        currentPath = "col " + pCurrent.x + " row " + pCurrent.y;
 
         
         return currentPath;
