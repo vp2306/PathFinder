@@ -10,11 +10,13 @@ import org.apache.logging.log4j.Logger;
 public class CreateMaze {
     public static final Logger logger = LogManager.getLogger();
 
-    public ArrayList<ArrayList<String>> generateMaze(String fileName){
+    public String[][] generateMaze(String fileName){
 
         //maze will contain the pass and wall. this data structure will allow for easier storage
         ArrayList<ArrayList<String>> maze = new ArrayList<ArrayList<String>>();
 
+        //later convert the arraylist into a 2d array to make it easier to iterate
+        
         try{
             logger.info("**** Reading the maze from file " + fileName);
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -32,21 +34,24 @@ public class CreateMaze {
                         currentRow.add("PASS");
                     }
                 }
-                System.out.print(System.lineSeparator());
+                //System.out.print(System.lineSeparator());
                 maze.add(currentRow);
 
             }
         }catch(Exception e){
             logger.error("an error occured");
         }
-        
-        for(ArrayList<String> row:maze){
-            for(String cell: row){
-                System.out.print(cell + " ");
+
+        //initilaize 2d array with same rows and colums to make it easier to iterate
+        String [][] mazeArr = new String[maze.size()][maze.get(0).size()];
+
+        for(int i = 0; i < maze.size(); i++){
+            for(int j = 0; j < maze.get(i).size(); j++){
+                mazeArr[i][j] = maze.get(i).get(j);
             }
-            System.out.println();
         }
-        return maze;
+        
+        return mazeArr;
 
     }
 }
