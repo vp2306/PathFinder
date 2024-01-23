@@ -37,13 +37,12 @@ public class Main {
             
 
             CreateMaze maze = new CreateMaze();
-            maze.generateMaze(fileName);
+            String[][] actualMaze = maze.generateMaze(fileName);
 
-            Position position = new Position();
-            position.initialPosition();
+
 
             Explore explorer = new Explore();
-            String path = explorer.findPath();
+            String path = explorer.findPath(actualMaze);
 
             System.out.println("Path for current maze: " + path);
 
