@@ -32,7 +32,7 @@ public class Explore {
             }
         }
 
-        currentPath = "col " + pCurrent.x + " row " + pCurrent.y;
+        currentPath = "col " + pCurrent.x + " row " + pCurrent.y + " done";
 
         
         return currentPath;
