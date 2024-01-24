@@ -50,6 +50,12 @@ public class CreateMaze {
                 mazeArr[i][j] = maze.get(i).get(j);
             }
         }
+        for (int i = 0; i < mazeArr.length; i++) {
+            for (int j = 0; j < mazeArr[i].length; j++) {
+                System.out.print(mazeArr[i][j] + " ");
+            }
+            System.out.println();
+        }
         
         return mazeArr;
 
