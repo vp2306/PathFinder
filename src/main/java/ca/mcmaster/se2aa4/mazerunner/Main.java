@@ -25,6 +25,7 @@ public class Main {
 
         // set hash arg to true because program expects -i or --i to have a file name associated with it
         options.addOption("i", "input", true, "user file input field");
+        options.addOption("p", true, "user inputed path");
         
         System.out.println("** Starting Maze Runner");
         
@@ -34,12 +35,19 @@ public class Main {
 
             //create a string that will store the actual name of file that needs to be parsed
             String fileName = createFileName(cmd);
+
+            String userPath = cmd.getOptionValue("p");
+
+            PathChecker check = new PathChecker();
+            if (check.checkPath(userPath) == true){
+                System.out.println("Valid path found");
+            } else{
+                System.out.println("No valid path");
+            }
             
 
             CreateMaze maze = new CreateMaze();
             String[][] actualMaze = maze.generateMaze(fileName);
-
-
 
             Explore explorer = new Explore();
             String path = explorer.findPath(actualMaze);
@@ -69,5 +77,7 @@ public class Main {
         
         return fileName;
     }
+
+    
     
 }
