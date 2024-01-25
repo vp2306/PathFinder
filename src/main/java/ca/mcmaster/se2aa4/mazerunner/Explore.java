@@ -9,6 +9,8 @@ public class Explore {
     
     public String findPath(String[][] maze){
 
+        Factorizer factorize = new Factorizer();
+
         String currentPath = " ";
 
         /*
@@ -18,30 +20,10 @@ public class Explore {
          * D: facing down
         */
 
-        String currentDirection = "R"; 
+        String currentDirection = "R"; //initialize it to right ->
 
-        //find starting coordiate
-        ArrayList<Position> path = new ArrayList<>();
-        
-
-        int row = maze.length;
-
-        //now we find the actual starting position. iterate 2d arr
-        for(int i = 0; i < row; i ++){
-            if (maze[i][0] == "PASS" || maze[i][0] == null) {
-                pCurrent.x = 0;//column 0
-                pCurrent.y = i;//row i
-                break;
-            }
-        }
-
-        for(int j = 0; j < row; j++){
-            if(maze[j][maze[0].length-1] == "PASS" || maze[j][maze[0].length-1]== null){
-                pEnd.x = maze[0].length-1; // last column
-                pEnd.y = j;//row in last column that contains the pass
-                break;
-            }
-        }
+        pCurrent = Position.starPosition(maze);
+        pEnd = Position.endPosition(maze);
 
         while(pCurrent.x != pEnd.x || pCurrent.y != pEnd.y){
             if (rightWall(maze, currentDirection) == true) {
@@ -59,6 +41,7 @@ public class Explore {
                 currentPath += "F";
             }
         }
+        currentPath = factorize.factorizeString(currentPath);
         return currentPath;
     }
 
@@ -99,7 +82,7 @@ public class Explore {
             case "L":
                 return "U";
 
-            case"D":
+            case "D":
                 return "L";
         
             default:
@@ -121,7 +104,7 @@ public class Explore {
             case "L":
                 return "D";
 
-            case"D":
+            case "D":
                 return "R";
         
             default:
@@ -133,28 +116,16 @@ public class Explore {
 
         switch (direction) {
             case "R":
-                //if facing right and wall exists to movers right
-                if (maze[pCurrent.y+1][pCurrent.x] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y+1][pCurrent.x] == "WALL";
 
             case "U":
-                if (maze[pCurrent.y][pCurrent.x+1] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y][pCurrent.x+1] == "WALL";
 
             case "L":
-                if (maze[pCurrent.y-1][pCurrent.x] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y-1][pCurrent.x] == "WALL";
+
             case"D":
-                if(maze[pCurrent.y][pCurrent.x-1] == "WALL"){
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y][pCurrent.x-1] == "WALL";
         
             default:
                 break;
@@ -166,28 +137,16 @@ public class Explore {
     private boolean frontWall(String[][] maze, String direction){
         switch (direction) {
             case "R":
-                //if facing right and wall exists to movers front
-                if (maze[pCurrent.y][pCurrent.x+1] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y][pCurrent.x+1] == "WALL";
 
             case "U":
-                if (maze[pCurrent.y-1][pCurrent.x] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y-1][pCurrent.x] == "WALL";
 
             case "L":
-                if (maze[pCurrent.y][pCurrent.x-1] == "WALL") {
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y][pCurrent.x-1] == "WALL";
+
             case"D":
-                if(maze[pCurrent.y+1][pCurrent.x] == "WALL"){
-                    return true;
-                }
-                break;
+                return maze[pCurrent.y+1][pCurrent.x] == "WALL";
         
             default:
                 break;
@@ -195,6 +154,4 @@ public class Explore {
         
         return false;
     }
-
-
 }
