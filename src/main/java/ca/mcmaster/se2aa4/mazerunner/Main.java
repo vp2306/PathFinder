@@ -39,28 +39,30 @@ public class Main {
             String userPath = cmd.getOptionValue("p");
 
             PathChecker check = new PathChecker();
-            if (check.checkPath(userPath) == true){
-                System.out.println("Valid path found");
-            } else{
-                System.out.println("No valid path");
-            }
+            
+            
             
 
             CreateMaze maze = new CreateMaze();
             String[][] actualMaze = maze.generateMaze(fileName);
 
-            logger.info("**** Computing path");
             Explore explorer = new Explore();
             String path = explorer.findPath(actualMaze);
+
+            if (check.checkPath(userPath, actualMaze) == true){
+                System.out.println("you entered a valid path");
+            } else{
+                System.out.println("No valid path");
+            }
+            //System.err.println(check.checkPath(userPath, actualMaze));
 
             System.out.println("Path for current maze: " + path);
 
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
-            logger.info("PATH NOT COMPUTED");
         }
-        
-        
+        logger.info("**** Computing path");
+        logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
 

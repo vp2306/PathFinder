@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Explore {
 
-    private Position pCurrent = new Position();
-    private Position pEnd = new Position();
+    private Position pCurrent = new Position(0, 0);
+    private Position pEnd = new Position(0, 0);
     
     public String findPath(String[][] maze){
 
@@ -14,13 +14,13 @@ public class Explore {
         String currentPath = " ";
 
         /*
-         * R: facing right
-         * U: facing up
-         * L: facing left
-         * D: facing down
+         * R: facing right >
+         * U: facing up ^
+         * L: facing left <
+         * D: facing down v
         */
 
-        String currentDirection = "R"; //initialize it to right ->
+        String currentDirection = "R"; //initialize it to right >
 
         pCurrent = Position.starPosition(maze);
         pEnd = Position.endPosition(maze);
@@ -28,14 +28,14 @@ public class Explore {
         while(pCurrent.x != pEnd.x || pCurrent.y != pEnd.y){
             if (rightWall(maze, currentDirection) == true) {
                 if (frontWall(maze, currentDirection) == true) {
-                    currentDirection = ccwRotator(currentDirection);
+                    currentDirection = leftTurn(currentDirection);
                     currentPath += "L";
                 } else{
                     moveForward(currentDirection);
                     currentPath += "F";
                 }
             } else{
-                currentDirection = cwRotator(currentDirection);
+                currentDirection = rightTurn(currentDirection);
                 currentPath += "R";
                 moveForward(currentDirection);
                 currentPath += "F";
@@ -45,35 +45,30 @@ public class Explore {
         return currentPath;
     }
 
-    private void moveForward(String direction){
+    public void moveForward(String direction) {
+    switch (direction) {
+        case "R":
+            pCurrent.x++;
+            break;
+        case "U":
+            pCurrent.y--;
+            break;
+        case "L":
+            pCurrent.x--;
+            break;
+        case "D":
+            pCurrent.y++;
+            break;
 
-        switch (direction) {
-            case "R":
-                pCurrent.x++;
-                break;
- 
-            case "U":
-                pCurrent.y--;  
-                break;             
-
-            case "L":
-                pCurrent.x--;
-                break;
-
-            case "D":
-                pCurrent.y++;
-                break;
-        
-            default:
-                break;
-        }
     }
+}
 
-    private String cwRotator(String direction){
+
+    public String rightTurn(String direction){
 
         switch (direction) {
             case "R":
-                //if facing right, clockwise rotation would be down
+                //if facing right, right rotation would be down
                 return "D";
  
             case "U":
@@ -91,11 +86,11 @@ public class Explore {
   
     }
 
-    private String ccwRotator(String direction){
+    public String leftTurn(String direction){
 
         switch (direction) {
             case "R":
-                //if facing right, counter-clockwise rotation would be down up
+                //if facing right, left rotation would be up
                 return "U";
 
             case "U":
