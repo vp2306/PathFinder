@@ -49,6 +49,7 @@ public class Main {
             CreateMaze maze = new CreateMaze();
             String[][] actualMaze = maze.generateMaze(fileName);
 
+            logger.info("**** Computing path");
             Explore explorer = new Explore();
             String path = explorer.findPath(actualMaze);
 
@@ -56,9 +57,10 @@ public class Main {
 
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
+            logger.info("PATH NOT COMPUTED");
         }
-        logger.info("**** Computing path");
-        logger.info("PATH NOT COMPUTED");
+        
+        
         logger.info("** End of MazeRunner");
     }
 
