@@ -14,6 +14,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.appender.rolling.action.IfAccumulatedFileCount;
 
 public class Main {
 
@@ -33,36 +34,36 @@ public class Main {
             //parse the commandline args
             CommandLine cmd = parser.parse(options, args);
 
+            //String userPath = "";
+
             //create a string that will store the actual name of file that needs to be parsed
             String fileName = createFileName(cmd);
-
-            String userPath = cmd.getOptionValue("p");
-
-            PathChecker check = new PathChecker();
-            
-            
-            
 
             CreateMaze maze = new CreateMaze();
             String[][] actualMaze = maze.generateMaze(fileName);
 
-            Explore explorer = new Explore();
-            String path = explorer.findPath(actualMaze);
+            if (cmd.hasOption("p")) {
+                String userPath = cmd.getOptionValue("p");
 
-            if (check.checkPath(userPath, actualMaze) == true){
+                PathChecker check = new PathChecker();
+
+                if (check.checkPath(userPath, actualMaze) == true){
                 System.out.println("you entered a valid path");
+            }   else{
+                    System.out.println("No valid path");
+                }
             } else{
-                System.out.println("No valid path");
-            }
-            //System.err.println(check.checkPath(userPath, actualMaze));
-
-            System.out.println("Path for current maze: " + path);
+                logger.info("**** Computing path");
+                Explore explorer = new Explore();
+                String path = explorer.findPath(actualMaze);
+                System.out.println("Path for current maze: " + path);
+            }           
 
         } catch(Exception e) {
             logger.error("/!\\ An error has occured /!\\");
+            logger.info("PATH NOT COMPUTED");
         }
-        logger.info("**** Computing path");
-        logger.info("PATH NOT COMPUTED");
+                
         logger.info("** End of MazeRunner");
     }
 
