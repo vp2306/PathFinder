@@ -72,8 +72,6 @@ public class PathChecker {
         }
     }   
     
-
-
     private void goForward (String direction){
         switch (direction) {
             case "R":
