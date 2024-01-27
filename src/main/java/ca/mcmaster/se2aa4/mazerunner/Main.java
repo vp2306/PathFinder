@@ -34,13 +34,13 @@ public class Main {
             //parse the commandline args
             CommandLine cmd = parser.parse(options, args);
 
-            //String userPath = "";
+            Algorithm rightHand = new Explore();
+            Maze twoD = new CreateMaze();
 
             //create a string that will store the actual name of file that needs to be parsed
             String fileName = createFileName(cmd);
 
-            CreateMaze maze = new CreateMaze();
-            String[][] actualMaze = maze.generateMaze(fileName);
+            String[][] actualMaze = twoD.generateMaze(fileName);
 
             if (cmd.hasOption("p")) {
                 String userPath = cmd.getOptionValue("p");
@@ -48,15 +48,15 @@ public class Main {
                 PathChecker check = new PathChecker();
 
                 if (check.checkPath(userPath, actualMaze) == true){
-                System.out.println("you entered a valid path");
+                System.out.println("correct path");
             }   else{
-                    System.out.println("No valid path");
+                    System.out.println("incorrect path");
                 }
             } else{
                 logger.info("**** Computing path");
-                Explore explorer = new Explore();
-                String path = explorer.findPath(actualMaze);
-                System.out.println("Path for current maze: " + path);
+                //Explore explorer = new Explore();
+                String path = rightHand.findPath(actualMaze);
+                System.out.println(path);
             }           
 
         } catch(Exception e) {

@@ -7,15 +7,18 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CreateMaze {
+public class CreateMaze implements Maze {
     public static final Logger logger = LogManager.getLogger();
 
+    @Override
     public String[][] generateMaze(String fileName){
 
         //maze will contain the pass and wall. this data structure will allow for easier storage
         ArrayList<ArrayList<String>> maze = new ArrayList<ArrayList<String>>();
 
-        //later convert the arraylist into a 2d array to make it easier to iterate
+        //initilaize a 2d array
+        String [][] maze2d;
+
         
         try{
             logger.info("**** Reading the maze from file " + fileName);
@@ -42,6 +45,11 @@ public class CreateMaze {
             logger.error("an error occured");
         }
 
+        maze2d = convert2dArr(maze);
+        return maze2d;     
+    }
+
+    private String[][] convert2dArr (ArrayList<ArrayList<String>> maze){
         //initilaize 2d array with same rows and colums to make it easier to iterate
         String [][] mazeArr = new String[maze.size()][maze.get(0).size()];
 
@@ -49,15 +57,7 @@ public class CreateMaze {
             for(int j = 0; j < maze.get(i).size(); j++){
                 mazeArr[i][j] = maze.get(i).get(j);
             }
-        }
-        for (int i = 0; i < mazeArr.length; i++) {
-            for (int j = 0; j < mazeArr[i].length; j++) {
-                System.out.print(mazeArr[i][j] + " ");
-            }
-            System.out.println();
-        }
-        
+        }       
         return mazeArr;
-
     }
 }

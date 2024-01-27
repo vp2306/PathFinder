@@ -18,6 +18,10 @@ public class PathChecker {
          * D: facing down v
         */
 
+        //create instance of factorizer so program handles both factorized and nonfactorized paths
+        Factorizer factor = new Factorizer();
+        userPath = factor.reverseFactorize(userPath);
+
         //call mover moethod for initial iteration (left to right)
         moverMethod(userPath, maze, currentDirection);
         if (pCurrent.x == pEnd.x && pCurrent.y == pEnd.y) {

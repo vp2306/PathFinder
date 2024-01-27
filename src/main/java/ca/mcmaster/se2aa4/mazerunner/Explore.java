@@ -2,11 +2,12 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
 
-public class Explore {
+public class Explore implements Algorithm {
 
     private Position pCurrent = new Position(0, 0);
     private Position pEnd = new Position(0, 0);
     
+    @Override
     public String findPath(String[][] maze){
 
         Factorizer factorize = new Factorizer();
