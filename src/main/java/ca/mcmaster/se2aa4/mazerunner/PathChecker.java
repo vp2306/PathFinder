@@ -15,7 +15,7 @@ public class PathChecker {
          * R: facing right >
          * U: facing up ^
          * L: facing left <
-         * D: facing down v
+         * D: facing downwards v
         */
 
         //create instance of factorizer so program handles both factorized and nonfactorized paths
