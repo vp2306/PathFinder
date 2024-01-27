@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.module.Configuration;
+import java.nio.file.InvalidPathException;
 import java.text.ParseException;
 
 import javax.swing.text.html.Option;
@@ -44,6 +45,13 @@ public class Main {
 
             if (cmd.hasOption("p")) {
                 String userPath = cmd.getOptionValue("p");
+
+                PathValidity pathValid = new PathValidity();
+
+                if (pathValid.validPathEntry(userPath) == false) {
+                    System.out.println("YOU ENTERED AN INVALID PATH");
+                    return;
+                }   
 
                 PathChecker check = new PathChecker();
 
