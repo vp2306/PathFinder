@@ -46,7 +46,7 @@ public class Explore implements Algorithm {
         return currentPath;
     }
 
-    public void moveForward(String direction) {
+    private void moveForward(String direction) {
     switch (direction) {
         case "R":
             pCurrent.x++;
