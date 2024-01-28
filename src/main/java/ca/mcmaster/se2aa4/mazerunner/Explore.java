@@ -23,9 +23,11 @@ public class Explore implements Algorithm {
 
         String currentDirection = "R"; //initialize it to right >
 
+        //initialize some start and end positions
         pCurrent = Position.starPosition(maze);
         pEnd = Position.endPosition(maze);
 
+        //keeps iterating till explorer not at the end
         while(pCurrent.x != pEnd.x || pCurrent.y != pEnd.y){
             if (rightWall(maze, currentDirection) == true) {
                 if (frontWall(maze, currentDirection) == true) {
@@ -42,13 +44,14 @@ public class Explore implements Algorithm {
                 currentPath += "F";
             }
         }
+        //factorize the string
         currentPath = factorize.factorizeString(currentPath);
         return currentPath;
     }
 
     private void moveForward(String direction) {
     switch (direction) {
-        case "R":
+        case "R": //if facing right, going forward would go into next column
             pCurrent.x++;
             break;
         case "U":
@@ -111,7 +114,7 @@ public class Explore implements Algorithm {
     private boolean rightWall(String[][] maze, String direction){
 
         switch (direction) {
-            case "R":
+            case "R": //right wall to someone facing > would be the next row down
                 return maze[pCurrent.y+1][pCurrent.x] == "WALL";
 
             case "U":
@@ -132,7 +135,7 @@ public class Explore implements Algorithm {
 
     private boolean frontWall(String[][] maze, String direction){
         switch (direction) {
-            case "R":
+            case "R": //front wall to someone facin > would be the next column over
                 return maze[pCurrent.y][pCurrent.x+1] == "WALL";
 
             case "U":

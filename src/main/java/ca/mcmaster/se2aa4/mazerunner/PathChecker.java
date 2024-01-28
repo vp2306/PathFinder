@@ -47,13 +47,15 @@ public class PathChecker {
     private void moverMethod(String path, String [][] maze, String direction){
         Explore explore = new Explore();
 
+        //initialize start and end position
         pCurrent = Position.starPosition(maze);
         pEnd = Position.endPosition(maze);
 
+        //get rid of spaces
         String pathNoSpaces = path.replace(" ", "");
         char[] inputPathArr = pathNoSpaces.toCharArray();
 
-
+        //loop iterates the entire path and uses methods to go in that direction
         for(int i = 0; i < inputPathArr.length; i++){
             
             switch(inputPathArr[i]){
@@ -74,7 +76,7 @@ public class PathChecker {
     
     private void goForward (String direction){
         switch (direction) {
-            case "R":
+            case "R": // if facing right, going forward would tak explorer to next column
                 pCurrent.x++;
                 break;
             case "U":
