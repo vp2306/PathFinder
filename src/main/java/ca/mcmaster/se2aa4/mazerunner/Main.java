@@ -29,7 +29,7 @@ public class Main {
         options.addOption("i", "input", true, "user file input field");
         options.addOption("p", true, "user inputed path");
         
-        System.out.println("** Starting Maze Runner");
+        
         
         try {
             //parse the commandline args
@@ -61,18 +61,18 @@ public class Main {
                     System.out.println("incorrect path");
                 }
             } else{
-                logger.info("**** Computing path");
+                System.out.println("**** Computing path");
                 //Explore explorer = new Explore();
                 String path = rightHand.findPath(actualMaze);
                 System.out.println(path);
             }           
 
         } catch(Exception e) {
-            logger.error("/!\\ An error has occured /!\\");
-            logger.info("PATH NOT COMPUTED");
+            System.out.println("/!\\ An error has occured /!\\");
+            System.out.println("PATH NOT COMPUTED");
         }
                 
-        logger.info("** End of MazeRunner");
+        System.out.println("** End of MazeRunner");
     }
 
 
