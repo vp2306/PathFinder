@@ -76,7 +76,7 @@ public class PathChecker {
     
     private void goForward (String direction){
         switch (direction) {
-            case "R": // if facing right, going forward would tak explorer to next column
+            case "R": // if facing right, going forward would tak explorer to next columns
                 pCurrent.x++;
                 break;
             case "U":
